@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://dg0ahgn2sxo71"]
+
+[ext_resource type="Script" uid="uid://bb3vu0n5ljsv3" path="res://background.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://c0plipvjybver" path="res://main.gd" id="1_h2yge"]
+[ext_resource type="Texture2D" uid="uid://dsgbe87e6a8so" path="res://Background.png" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://c2fyc3p3er3j6" path="res://Player.png" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://0o3q6bk35mgx" path="res://player.gd" id="4_lquwl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1bvp3"]
+radius = 35.0
+
+[node name="main" type="Node"]
+script = ExtResource("1_h2yge")
+
+[node name="node_bg" type="Node2D" parent="." groups=["Dynamic_Objects"]]
+position = Vector2(0, 240)
+script = ExtResource("1_0xm2m")
+
+[node name="sprite_bg" type="Sprite2D" parent="node_bg"]
+position = Vector2(400, 0)
+texture = ExtResource("1_ig7tw")
+
+[node name="sprite_bg2" type="Sprite2D" parent="node_bg"]
+position = Vector2(1200, 0)
+texture = ExtResource("1_ig7tw")
+
+[node name="Player" type="RigidBody2D" parent="."]
+position = Vector2(85, 240)
+mass = 2.2
+gravity_scale = 1.6
+script = ExtResource("4_lquwl")
+
+[node name="sprite_player" type="Sprite2D" parent="Player"]
+texture = ExtResource("4_1bvp3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(5, -1)
+scale = Vector2(1.08, 1)
+shape = SubResource("CircleShape2D_1bvp3")
