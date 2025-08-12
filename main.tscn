@@ -1,13 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://dg0ahgn2sxo71"]
+[gd_scene load_steps=11 format=3 uid="uid://dg0ahgn2sxo71"]
 
 [ext_resource type="Script" uid="uid://bb3vu0n5ljsv3" path="res://background.gd" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://c0plipvjybver" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="Texture2D" uid="uid://dsgbe87e6a8so" path="res://Background.png" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://c2fyc3p3er3j6" path="res://Player.png" id="4_1bvp3"]
 [ext_resource type="Script" uid="uid://0o3q6bk35mgx" path="res://player.gd" id="4_lquwl"]
+[ext_resource type="FontFile" uid="uid://d2gonjb5722wa" path="res://kenvector_future.ttf" id="6_7mycd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1bvp3"]
 radius = 35.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lquwl"]
+size = Vector2(800, 20)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
+bg_color = Color(0.480868, 0.515191, 0.478597, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mycd"]
+bg_color = Color(0.383791, 0.70405, 0.441448, 1)
 
 [node name="main" type="Node"]
 script = ExtResource("1_h2yge")
@@ -28,6 +38,7 @@ texture = ExtResource("1_ig7tw")
 position = Vector2(85, 240)
 mass = 2.2
 gravity_scale = 1.6
+continuous_cd = 1
 script = ExtResource("4_lquwl")
 
 [node name="sprite_player" type="Sprite2D" parent="Player"]
@@ -37,3 +48,52 @@ texture = ExtResource("4_1bvp3")
 position = Vector2(5, -1)
 scale = Vector2(1.08, 1)
 shape = SubResource("CircleShape2D_1bvp3")
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Walls"]
+position = Vector2(0, 21)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D"]
+position = Vector2(400, 0)
+shape = SubResource("RectangleShape2D_lquwl")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Walls"]
+position = Vector2(0, 480)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D2"]
+position = Vector2(400, 0)
+shape = SubResource("RectangleShape2D_lquwl")
+
+[node name="UI" type="Control" parent="."]
+z_index = 5
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthBar" type="ProgressBar" parent="UI"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 27.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_lquwl")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7mycd")
+value = 100.0
+show_percentage = false
+
+[node name="ScoreLabel" type="Label" parent="UI/HealthBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("6_7mycd")
+theme_override_font_sizes/font_size = 22
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
