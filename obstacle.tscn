@@ -2,7 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://dihqkpui1ror1" path="res://Obstacle.png" id="1_sl1jc"]
 
-[node name="Area2D" type="Area2D"]
+[node name="Obstacle" type="Area2D" groups=["Dynamic_Objects"]]
+scale = Vector2(0.5, 0.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_sl1jc")

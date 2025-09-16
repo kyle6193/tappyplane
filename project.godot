@@ -20,6 +20,11 @@ window/size/viewport_width=800
 window/size/viewport_height=480
 window/stretch/mode="viewport"
 
+[global_group]
+
+Dynamic_Objects=""
+Player=""
+
 [input]
 
 click={
