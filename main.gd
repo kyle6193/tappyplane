@@ -20,7 +20,7 @@ func _process(delta: float) -> void:
 		health -= delta * health_decrease_speed # Takes the above health float, and decreases every second
 		$UI/HealthBar.value = health
 		'''
-		You can't initially edit child values (we're currently on "main" node), so to do so you
+		You can't initially edit child values (we're currently on the "Main" node), so to do so you
 		use the $ and a path to gain access to the desired node's values. The above code accesses
 		the HeathBar's "value" and links it with the float to cause it to decrease each second.
 		'''

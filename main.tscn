@@ -21,7 +21,7 @@ bg_color = Color(0.480868, 0.515191, 0.478597, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mycd"]
 bg_color = Color(0.383791, 0.70405, 0.441448, 1)
 
-[node name="main" type="Node"]
+[node name="Main" type="Node"]
 script = ExtResource("1_h2yge")
 obstacle = ExtResource("7_272bh")
 coin = ExtResource("8_5vw27")
@@ -34,46 +34,46 @@ autostart = true
 wait_time = 1.125
 autostart = true
 
-[node name="node_bg" type="Node2D" parent="." groups=["Dynamic_Objects"]]
+[node name="Background" type="Node2D" parent="." groups=["Dynamic_Objects"]]
 position = Vector2(0, 240)
 script = ExtResource("1_0xm2m")
 
-[node name="sprite_bg" type="Sprite2D" parent="node_bg"]
+[node name="BackgroundSprite1" type="Sprite2D" parent="Background"]
 position = Vector2(400, 0)
 texture = ExtResource("1_ig7tw")
 
-[node name="sprite_bg2" type="Sprite2D" parent="node_bg"]
+[node name="BackgroundSprite2" type="Sprite2D" parent="Background"]
 position = Vector2(1200, 0)
 texture = ExtResource("1_ig7tw")
 
-[node name="Player" type="RigidBody2D" parent="."]
+[node name="Player" type="RigidBody2D" parent="." groups=["Player"]]
 position = Vector2(85, 240)
 mass = 2.2
 gravity_scale = 1.6
 continuous_cd = 1
 script = ExtResource("4_lquwl")
 
-[node name="sprite_player" type="Sprite2D" parent="Player"]
+[node name="PlayerSprite" type="Sprite2D" parent="Player"]
 texture = ExtResource("4_1bvp3")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+[node name="PlayerCollision" type="CollisionShape2D" parent="Player"]
 position = Vector2(5, -1)
 scale = Vector2(1.08, 1)
 shape = SubResource("CircleShape2D_1bvp3")
 
 [node name="Walls" type="Node" parent="."]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Walls"]
+[node name="TopWall" type="StaticBody2D" parent="Walls"]
 position = Vector2(0, 21)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D"]
+[node name="TopWallCollision" type="CollisionShape2D" parent="Walls/TopWall"]
 position = Vector2(400, 0)
 shape = SubResource("RectangleShape2D_lquwl")
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="Walls"]
+[node name="BottomWall" type="StaticBody2D" parent="Walls"]
 position = Vector2(0, 480)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D2"]
+[node name="BottomWallCollision" type="CollisionShape2D" parent="Walls/BottomWall"]
 position = Vector2(400, 0)
 shape = SubResource("RectangleShape2D_lquwl")
 
