@@ -24,7 +24,9 @@ func _process(delta: float) -> void:
 		use the $ and a path to gain access to the desired node's values. The above code accesses
 		the HeathBar's "value" and links it with the float to cause it to decrease each second.
 		'''
-	
+	else:
+		game_over()
+
 	score += delta # increase score every second
 	var formatted_score : String = str(score) # format score into a String
 	formatted_score = "%.2f" % score 
@@ -55,6 +57,7 @@ func _on_spawner_timer_timeout() -> void:
 		obstacle_instance.position.y = 420
 		obstacle_instance.scale.y *= -1 #Flips the obstacle vertically by multiplying its y-scale by -1
 		ranspan_pos = "down"
+	obstacle_instance.body_entered.connect(_on_obstacle_collided) # See comment in _on_coin_timer_timeout() below
 
 func _on_coin_timer_timeout() -> void:
 	var random: int = randi() % 3
@@ -89,3 +92,11 @@ func _on_coin_collided(body: Node, coin_instance: Area2D) -> void:
 		coin_instance.queue_free() # queue_free() safely deletes the node after the current frame and frees up memory.
 		if health > 100:
 			health = 100
+
+func _on_obstacle_collided(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		game_over()
+
+func game_over() -> void:
+	$GameOver.show()
+	get_tree().paused = true
