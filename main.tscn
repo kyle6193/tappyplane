@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dg0ahgn2sxo71"]
+[gd_scene load_steps=17 format=3 uid="uid://dg0ahgn2sxo71"]
 
 [ext_resource type="Script" uid="uid://bb3vu0n5ljsv3" path="res://background.gd" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://c0plipvjybver" path="res://main.gd" id="1_h2yge"]
@@ -7,11 +7,16 @@
 [ext_resource type="Script" uid="uid://0o3q6bk35mgx" path="res://player.gd" id="4_lquwl"]
 [ext_resource type="FontFile" uid="uid://d2gonjb5722wa" path="res://kenvector_future.ttf" id="6_7mycd"]
 [ext_resource type="PackedScene" uid="uid://bhyeqd7w7612w" path="res://obstacle.tscn" id="7_272bh"]
+[ext_resource type="Texture2D" uid="uid://7hyrcgoudx57" path="res://Circle.png" id="8_4c57u"]
 [ext_resource type="PackedScene" uid="uid://bvrt0jymyysw" path="res://coin.tscn" id="8_5vw27"]
 [ext_resource type="Script" uid="uid://hxn0cbroes55" path="res://game_over.gd" id="9_kek77"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1bvp3"]
 radius = 35.0
+
+[sub_resource type="Curve" id="Curve_4c57u"]
+_data = [Vector2(0.00564972, 0.993747), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lquwl"]
 size = Vector2(800, 20)
@@ -64,6 +69,19 @@ texture = ExtResource("4_1bvp3")
 position = Vector2(5, -1)
 scale = Vector2(1.08, 1)
 shape = SubResource("CircleShape2D_1bvp3")
+
+[node name="Particles" type="CPUParticles2D" parent="Player"]
+top_level = true
+amount = 28
+texture = ExtResource("8_4c57u")
+lifetime = 0.4
+spread = 180.0
+gravity = Vector2(-2500, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+scale_amount_min = 0.5
+scale_amount_max = 0.5
+scale_amount_curve = SubResource("Curve_4c57u")
 
 [node name="Walls" type="Node" parent="."]
 

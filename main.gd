@@ -84,12 +84,14 @@ func _on_coin_timer_timeout() -> void:
 	.body_entered is a signal emitted when another body enters the Area2D. It's coded here since the node spawns during runtime.
 	connect() links a signal to a function so that when the signal is emitted, the function is called.
 	bind() sends the named node to the "connected" function as an additional argument.
+	This is important because it's sending the exact coin that was collided.
 	'''
 
 func _on_coin_collided(body: Node, coin_instance: Area2D) -> void:
 	if body.is_in_group("Player"): # Check if the colliding body is in the "Player" group
 		health += 4
-		coin_instance.queue_free() # queue_free() safely deletes the node after the current frame and frees up memory.
+		coin_instance.get_node("AnimationPlayer").play("CoinCollected")
+		#coin_instance.queue_free() # queue_free() safely deletes the node after the current frame and frees up memory.
 		if health > 100:
 			health = 100
 
