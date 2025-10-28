@@ -42,7 +42,7 @@ func _process(delta: float) -> void:
 	'''
 
 func _on_spawner_timer_timeout() -> void:
-	var random : int = randi() % 2 
+	var random : int = randi() % 2 # Random integer which is modulo 2. See below.
 	'''
 	% 2 is modular math. Mod 2 means the result can only be 0 or 1. If it was % 3 it would be 0, 1, 2 and so on.
 	Look it up for a deep dive. Basically it answers "If I divide these two numbers, what's the remainder?"
@@ -54,7 +54,7 @@ func _on_spawner_timer_timeout() -> void:
 		obstacle_instance.position.y = 88
 		ranspan_pos = "up"
 	if random == 1:
-		obstacle_instance.position.y = 420
+		obstacle_instance.position.y = 420 #hehe nice
 		obstacle_instance.scale.y *= -1 #Flips the obstacle vertically by multiplying its y-scale by -1
 		ranspan_pos = "down"
 	obstacle_instance.body_entered.connect(_on_obstacle_collided) # See comment in _on_coin_timer_timeout() below
@@ -89,18 +89,25 @@ func _on_coin_timer_timeout() -> void:
 
 func _on_coin_collided(body: Node, coin_instance: Area2D) -> void:
 	if body.is_in_group("Player"): # Check if the colliding body is in the "Player" group
-		$Player/CoinCollectedSound.play()
+		$Player/CoinCollectedSound.play() # The audio is added to the Player node, so we access it via $Player
+		var ani = coin_instance.get_node("AnimationPlayer")
+		ani.play("CoinCollected") # Plays the "CoinCollected" animation from the coin's AnimationPlayer node
+		
 		health += 4
-		coin_instance.get_node("AnimationPlayer").play("CoinCollected")
-		#coin_instance.queue_free() # queue_free() safely deletes the node after the current frame and frees up memory.
 		if health > 100:
 			health = 100
+
+		ani.animation_finished.connect(
+			func _on_ani_finished(_name : String) -> void:
+				if _name == "CoinCollected":
+					coin_instance.queue_free()
+		)
 
 func _on_obstacle_collided(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		game_over()
 
 func game_over() -> void:
-	$Player/GameOverSound.play()
-	$GameOver.show()
+	$Player/GameOverSound.play() # See comment in _on_coin_collided() above. play() plays the sound.
+	$GameOver.show() # switches to the game over scene
 	get_tree().paused = true
