@@ -89,6 +89,7 @@ func _on_coin_timer_timeout() -> void:
 
 func _on_coin_collided(body: Node, coin_instance: Area2D) -> void:
 	if body.is_in_group("Player"): # Check if the colliding body is in the "Player" group
+		$Player/CoinCollectedSound.play()
 		health += 4
 		coin_instance.get_node("AnimationPlayer").play("CoinCollected")
 		#coin_instance.queue_free() # queue_free() safely deletes the node after the current frame and frees up memory.
@@ -100,5 +101,6 @@ func _on_obstacle_collided(body: Node2D) -> void:
 		game_over()
 
 func game_over() -> void:
+	$Player/GameOverSound.play()
 	$GameOver.show()
 	get_tree().paused = true
